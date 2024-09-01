@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Sharink",
+  "version": "1.0",
+
+  "description": "Adds a red border to all webpages matching mozilla.org.",
+
+  "icons": {
+    "48": "icons/sharink-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.music.yandex.by/*", "*://*.music.yandex.ru/*"],
+      "js": ["sharink.js"],
+      "world": "MAIN",
+      "run_at":"document_end"
+    }
+  ]
+}
