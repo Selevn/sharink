@@ -1,9 +1,10 @@
+/*
 import YTMusic from "ytmusic-api"
 import { YMApi } from "ym-api-meowed";
 
 
 const ytmusic = new YTMusic()
-await ytmusic.initialize(/* Optional: Custom cookies */)
+await ytmusic.initialize(/!* Optional: Custom cookies *!/)
 
 
 const name = "Why'd you only call me when you're high"
@@ -33,7 +34,7 @@ export const spotifySongsFinder = async (name, actor) => {
         });
 
         const data = await response.json();
-}
+    }
 
-yandexSongsFinder('След', 'Рано').then(res => console.log(res))
-
+    yandexSongsFinder('След', 'Рано').then(res => console.log(res))
+*/
