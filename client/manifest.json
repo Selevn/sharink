@@ -12,17 +12,20 @@
     "http://*/*",
     "http://sharink.com:8080/*"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": ["*://*.music.yandex.by/*", "*://*.music.yandex.ru/*"],
       "js": ["helpers.js", "sharink-yandex.js"],
-      "world": "MAIN",
+      "world": "ISOLATED",
       "run_at":"document_end"
     },
     {
       "matches": ["*://*.music.youtube.com/*"],
       "js": ["helpers.js", "sharink-youtube.js"],
-      "world": "MAIN",
+      "world": "ISOLATED",
       "run_at":"document_end"
     }
   ]

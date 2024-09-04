@@ -66,6 +66,15 @@ function initialize() {
 }
 
 setTimeout(async ()=>{
-
+    chrome.runtime.sendMessage(
+        { action: 'sendRequest', data: { "name": "123", "author":"1234", "cover": "1" } },
+        (response) => {
+            if (response.error) {
+                console.error('Error:', response.error);
+            } else {
+                console.log('Response:', response.data);
+            }
+        }
+    );
     console.log('Done')
 }, 2000)

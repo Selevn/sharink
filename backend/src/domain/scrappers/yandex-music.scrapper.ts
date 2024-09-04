@@ -1,6 +1,7 @@
 import {ScrapperInterface} from "@/domain/interfaces";
 import {RequestEntity, Link} from "../types";
 import { YMApi } from "ym-api-meowed";
+import {env} from "@/common/utils/envConfig";
 
 export class YandexMusicScrapper implements ScrapperInterface {
 
@@ -9,8 +10,8 @@ export class YandexMusicScrapper implements ScrapperInterface {
     constructor() {
         this.api = new YMApi();
         this.api.init({
-            access_token: "y0_AgAEA7qhdQC8AAG8XgAAAAEO2pILAAAxzVjxVkFNwIZidKdsgoZdzXGz0Q",
-            uid: 1130000014442684
+            access_token: env.YA_ACCESS_TOKEN,
+            uid: env.YA_UID
         });
     }
 
