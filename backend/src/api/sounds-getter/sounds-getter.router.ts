@@ -1,10 +1,10 @@
-import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
-import express, { type Request, type Response, type Router } from "express";
+import {OpenAPIRegistry} from "@asteasolutions/zod-to-openapi";
+import express, {type Request, type Response, type Router} from "express";
 import {string, z} from "zod";
 
-import { createApiResponse } from "@/api-docs/openAPIResponseBuilders";
-import { ServiceResponse } from "@/common/models/serviceResponse";
-import { handleServiceResponse } from "@/common/utils/httpHandlers";
+import {createApiResponse} from "@/api-docs/openAPIResponseBuilders";
+import {ServiceResponse} from "@/common/models/serviceResponse";
+import {handleServiceResponse} from "@/common/utils/httpHandlers";
 import {MasterService} from "@/domain";
 import {CacheService} from "@/domain/cache.service";
 import {YandexMusicScrapper} from "@/domain/scrappers/yandex-music.scrapper";
@@ -36,12 +36,12 @@ const masterService = new MasterService(
 soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
     const body = _req.body
 
-    console.log(body)
+    console.log('HERE', new Date())
 
     const id = await masterService.copyTrack({
-        name: 'safe and sound',
-        author: 'Capital Cities',
-        cover: ''
+        name: body.name,
+        author: body.author,
+        cover: body.cover
     })
     const serviceResponse = ServiceResponse.success("Id generated", {
         id
@@ -51,7 +51,7 @@ soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
 
 soundsLinkGetterRouter.get("/get/:id", async (_req: Request, res: Response) => {
     const id = _req.params.id;
-    console.log('id',id)
+    console.log('id', id)
     const serviceResponse = ServiceResponse.success("Service is healthy", await masterService.getTrack(id));
     return handleServiceResponse(serviceResponse, res);
 });

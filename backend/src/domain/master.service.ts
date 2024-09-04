@@ -19,7 +19,7 @@ export class MasterService {
             const [yandexLink, youtubeLink] = (await Promise.allSettled([
                 yandexResult, youtubeResult
             ])).map(item => item.status === 'fulfilled' ? item.value : '')
-            console.log('links',[yandexLink, youtubeLink])
+
             this.cacheService.set(hash, {
                 name: entity.name,
                 author: entity.author,

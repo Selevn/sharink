@@ -7,6 +7,6 @@ export class IdGeneratorService {
     }
 
     public static generateHash(entity: RequestEntity): Hash {
-        return btoa(entity.name+entity.author)
+        return Buffer.from(entity.name+entity.author,'utf8').toString('base64')
     }
 }
