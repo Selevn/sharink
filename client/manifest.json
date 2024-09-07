@@ -19,13 +19,11 @@
     {
       "matches": ["*://*.music.yandex.by/*", "*://*.music.yandex.ru/*"],
       "js": ["helpers.js", "sharink-yandex.js"],
-      "world": "ISOLATED",
       "run_at":"document_end"
     },
     {
       "matches": ["*://*.music.youtube.com/*"],
       "js": ["helpers.js", "sharink-youtube.js"],
-      "world": "ISOLATED",
       "run_at":"document_end"
     }
   ]

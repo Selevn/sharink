@@ -22,7 +22,11 @@ soundsLinkGetterRegistry.registerPath({
 
 soundsLinkGetterRegistry.registerPath({
     method: "get",
-    path: "/get/:id",
+    path: "/get/{id}",
+    parameters: [{
+        name: 'id',
+        in: 'path',
+    }],
     tags: ["Get sounds by link"],
     responses: createApiResponse(z.any(), "Success"),
 });
@@ -35,8 +39,6 @@ const masterService = new MasterService(
 
 soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
     const body = _req.body
-
-    console.log('HERE', new Date())
 
     const id = await masterService.copyTrack({
         name: body.name,
@@ -51,7 +53,6 @@ soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
 
 soundsLinkGetterRouter.get("/get/:id", async (_req: Request, res: Response) => {
     const id = _req.params.id;
-    console.log('id', id)
     const serviceResponse = ServiceResponse.success("Service is healthy", await masterService.getTrack(id));
     return handleServiceResponse(serviceResponse, res);
 });

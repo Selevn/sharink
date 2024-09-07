@@ -1,36 +1,25 @@
+const TRACK_COVER_IMG_SELECTOR = '.player-controls__track-container img';
+const TRACK_NAME_SELECTOR = '.player-controls__track-container a.track__title';
+const TRACK_AUTHOR_SELECTOR = '.player-controls__track-container .track__artists a';
+const CURRENT_TRACK_PLAYER_SELECTOR = '.player-controls__track_shown';
+
 const SHARE_BUTTON_SELECTOR = '.player-controls__track-controls > .d-share-popup.d-share-popup_btn';
 const SHARE_ACTIONS_SELECTOR = '.d-share-popup__actions';
 
 console.log('Sharink started...')
 
-if (!window.externalAPI) {
-    console.error('Failed to initialize Sharink. Yandex Music API is not accessible')
-}
+checkPlayerReadiness(initialize);
 
-window.externalAPI?.on(externalAPI.EVENT_CONTROLS, initialize);
-
-function getId(name, author, cover){
-    (async () => {
-        try{
-        const rawResponse = await fetch('http://sharink.com:8080/create', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({name, author, cover})
-        });
-        const content = await rawResponse.json();
-
-        console.log(content.id);
-
-
-            await navigator.clipboard.writeText(`http://sharink.com:8080/get/${content.id}`);
-            console.log('Copy success')
-        } catch (e) {
-            console.log('Copy error',e)
+function checkPlayerReadiness(onPlayerReady) {
+    const interval = setInterval(() => {
+        const currentTrackPlayer = document.querySelector(CURRENT_TRACK_PLAYER_SELECTOR);
+        if (!currentTrackPlayer) {
+            return;
         }
-    })();
+
+        clearInterval(interval);
+        onPlayerReady?.();
+    }, 2000);
 }
 
 function initialize() {
@@ -50,13 +39,11 @@ function initialize() {
                 buttonText.innerText = 'Универсальное копирование';
 
                 newButton.addEventListener('click', () => {
-                    const currentTrack = window.externalAPI.getCurrentTrack();
-                    const artist = currentTrack.artists[0];
-                    const coverUrl = currentTrack.cover.replace('%%', '50x50');
-                    console.log(coverUrl);
+                    const trackName = document.querySelector(TRACK_NAME_SELECTOR).title;
+                    const trackAuthor = document.querySelector(TRACK_AUTHOR_SELECTOR).title;
+                    const trackCover = document.querySelector(TRACK_COVER_IMG_SELECTOR).src;
 
-                    //alert(`Title: ${currentTrack.title}.\n\nArtist: ${artist.title}\n\nCover url: ${coverUrl}`)
-                    getId(currentTrack.title, artist.title,coverUrl)
+                    getCopyLink(trackName, trackAuthor, trackCover)
                 });
 
                 shareActions.appendChild(newButton)
@@ -65,16 +52,41 @@ function initialize() {
     });
 }
 
-setTimeout(async ()=>{
-    chrome.runtime.sendMessage(
-        { action: 'sendRequest', data: { "name": "123", "author":"1234", "cover": "1" } },
-        (response) => {
-            if (response.error) {
-                console.error('Error:', response.error);
-            } else {
-                console.log('Response:', response.data);
-            }
+function getCopyLink(name, author, cover){
+    (async () => {
+        try {
+            chrome.runtime.sendMessage({ action: 'sendRequest', data: { name, author, cover } },
+                async (response) => {
+                    if (response.error) {
+                        console.error('Error:', response.error);
+
+                        return;
+                    } 
+
+                    await navigator.clipboard.writeText(`http://sharink.com:8080/get/${response.data.responseObject.id}`);
+
+                    console.log('Copy success')
+                }
+            );
+        } catch (e) {
+            console.log('Copy error',e)
         }
-    );
-    console.log('Done')
-}, 2000)
+    })();
+}
+
+// setTimeout(async ()=>{
+//     console.log(chrome);
+
+//     chrome.runtime.sendMessage(
+//         { action: 'sendRequest', data: { "name": "123", "author":"1234", "cover": "1" } },
+//         (response) => {
+//             console.log(response);
+//             if (response.error) {
+//                 console.error('Error:', response.error);
+//             } else {
+//                 console.log('Response:', response.data);
+//             }
+//         }
+//     );
+//     console.log('Done')
+// }, 2000)

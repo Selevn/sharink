@@ -20,6 +20,8 @@ export class MasterService {
                 yandexResult, youtubeResult
             ])).map(item => item.status === 'fulfilled' ? item.value : '')
 
+            console.log(youtubeLink, yandexLink);
+
             this.cacheService.set(hash, {
                 name: entity.name,
                 author: entity.author,
@@ -29,12 +31,13 @@ export class MasterService {
 
             })
         }
+
         return hash
     };
 
     async getTrack(id: Link): Promise<CacheEntity | null> {
         const hash = id;
-        if(this.cacheService.has(hash)){
+        if (this.cacheService.has(hash)) {
             return this.cacheService.get(hash);
         } else {
             return null;
