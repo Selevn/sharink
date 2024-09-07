@@ -1,9 +1,9 @@
-import {CacheID, CacheEntity} from "@/domain/types";
+export interface CacheServiceInterface<T, K> {
+    healthCheck(): Promise<boolean>
 
-export interface CacheServiceInterface {
-    set(id: CacheID, value: CacheEntity): Promise<boolean>
+    set(id: K, value: T): Promise<boolean>
 
-    has(id: CacheID): Promise<boolean>
+    has(id: K): Promise<boolean>
 
-    get(id: CacheID): Promise<CacheEntity>
+    get(id: K): Promise<T>
 }

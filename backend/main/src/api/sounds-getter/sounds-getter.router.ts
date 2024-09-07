@@ -11,7 +11,8 @@ import {YandexMusicScrapper} from "@/domain/scrappers/yandex-music.scrapper";
 import {YoutubeMusicScrapper} from "@/domain/scrappers/youtube-music.scrapper";
 import {Create, CreateSchema, GetSchemaRequest} from "@/domain/models/request-response.model";
 import {zodErrorConverter} from "@/common/utils/zod-error.converter";
-import {CacheRepository} from "@/domain/repository/cache.repository";
+import {RedisRepository} from "@/domain/repository/redis.repository";
+import {MongoDatabaseRepository} from "@/domain/repository/database.repository";
 
 export const soundsLinkGetterRegistry = new OpenAPIRegistry();
 export const soundsLinkGetterRouter: Router = express.Router();
@@ -42,7 +43,8 @@ soundsLinkGetterRegistry.registerPath({
 });
 
 const masterService = new MasterService(
-    new CacheRepository(),
+    new MongoDatabaseRepository(),
+    new RedisRepository(),
     new YandexMusicScrapper(),
     new YoutubeMusicScrapper()
 )

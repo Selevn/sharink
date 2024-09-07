@@ -14,35 +14,39 @@ services:
       - sharink-network
 
   redis:
-    container_name: redis
+    container_name: ${REDIS_HOST}
     image: redis:5
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
     restart: always
     volumes:
-      - /path/to/local/dаta:/root/redis
-      - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
+      - /docker/redis/dаta:/root/redis
+      - /docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_USER=${REDIS_USER}
       - REDIS_DATABASES=16
     networks:
       - sharink-network
-    env_file: "main/.env"
+    env_file: ".env"
 
   mongodb:
-    container_name: mp-mongodb
+    container_name: ${MONGO_HOST}
     image: mongo:3.6
     restart: always
     environment:
       MONGO_DATA_DIR: /data/db
       MONGO_LOG_DIR: /dev/null
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_LOGIN}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - mongo-data:/data/db
+      - /docker/mongo/data:/data/db
     ports:
-      - "27017:27017"
+      - ${MONGO_PORT}:${MONGO_PORT}
     command: mongod --smallfiles --logpath=/dev/null # --quiet
     networks:
       - sharink-network
+    env_file: ".env"
 
 volumes:
   mongo-data:

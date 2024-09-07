@@ -1,11 +1,12 @@
 import {CacheServiceInterface} from "@/domain/interfaces/cache-service.interface";
-import {ScrapperInterface} from "@/domain/interfaces";
-import {CacheEntity, Link, RequestEntity} from "@/domain/types";
+import {DatabaseInterface, ScrapperInterface} from "@/domain/interfaces";
+import {CacheEntity, CacheID, Link, RequestEntity} from "@/domain/types";
 import {IdGeneratorService} from "@/domain/id-generator.service";
 
 export class MasterService {
     constructor(
-        private readonly cacheService: CacheServiceInterface,
+        private readonly databaseService: DatabaseInterface<CacheEntity, CacheID>,
+        private readonly cacheService: CacheServiceInterface<CacheEntity, CacheID>,
         private readonly yandexScrapper: ScrapperInterface,
         private readonly youtubeInterface: ScrapperInterface,
     ) {
@@ -22,7 +23,17 @@ export class MasterService {
 
             console.log(youtubeLink, yandexLink);
 
-            this.cacheService.set(hash, {
+            if(await this.cacheService.healthCheck()){
+                this.cacheService.set(hash, {
+                    name: entity.name,
+                    author: entity.author,
+                    cover: entity.cover,
+                    links:
+                        {yandex: yandexLink, youtube: youtubeLink, spotify: ''}
+                })
+            }
+
+            this.databaseService.create(hash, {
                 name: entity.name,
                 author: entity.author,
                 cover: entity.cover,
@@ -37,10 +48,19 @@ export class MasterService {
 
     async getTrack(id: Link): Promise<CacheEntity | null> {
         const hash = id;
-        if (await this.cacheService.has(hash)) {
+        if (await this.cacheService.healthCheck() && await this.cacheService.has(hash)) {
             return this.cacheService.get(hash);
         } else {
-            return null;
+            return await this.databaseService.read(id);
+
+            /*
+            const databaseResult = await this.databaseService.read(id);
+
+            if(databaseResult){
+                return databaseResult;
+            } else {
+                return null;
+            }*/
         }
     };
 }
