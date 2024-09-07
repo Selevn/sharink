@@ -3,7 +3,7 @@
   "name": "Sharink",
   "version": "1.0",
 
-  "description": "Adds a red border to all webpages matching mozilla.org.",
+  "description": "Share your favorite tracks with friend independent from music platform",
 
   "icons": {
     "48": "icons/border-48.png"
@@ -13,17 +13,17 @@
     "http://sharink.com:8080/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.bundle.js"
   },
   "content_scripts": [
     {
       "matches": ["*://*.music.yandex.by/*", "*://*.music.yandex.ru/*"],
-      "js": ["helpers.js", "sharink-yandex.js"],
+      "js": ["yandex.bundle.js"],
       "run_at":"document_end"
     },
     {
       "matches": ["*://*.music.youtube.com/*"],
-      "js": ["helpers.js", "sharink-youtube.js"],
+      "js": ["youtube.bundle.js"],
       "run_at":"document_end"
     }
   ]
