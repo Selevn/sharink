@@ -17,7 +17,7 @@ services:
     container_name: redis
     image: redis:5
     ports:
-      - "6379:6379"
+      - ${REDIS_PORT}:${REDIS_PORT}
     restart: always
     volumes:
       - /path/to/local/dаta:/root/redis
@@ -27,6 +27,7 @@ services:
       - REDIS_DATABASES=16
     networks:
       - sharink-network
+    env_file: "main/.env"
 
   mongodb:
     container_name: mp-mongodb

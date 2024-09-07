@@ -13,7 +13,7 @@ export class MasterService {
 
     async copyTrack(entity: RequestEntity): Promise<Link> {
         const hash = IdGeneratorService.generateHash(entity);
-        if (!this.cacheService.has(hash)) {
+        if (!await this.cacheService.has(hash)) {
             const yandexResult = this.yandexScrapper.getTrack(entity);
             const youtubeResult = this.youtubeInterface.getTrack(entity);
             const [yandexLink, youtubeLink] = (await Promise.allSettled([
@@ -37,7 +37,7 @@ export class MasterService {
 
     async getTrack(id: Link): Promise<CacheEntity | null> {
         const hash = id;
-        if (this.cacheService.has(hash)) {
+        if (await this.cacheService.has(hash)) {
             return this.cacheService.get(hash);
         } else {
             return null;

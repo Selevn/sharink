@@ -12,4 +12,6 @@ export const env = cleanEnv(process.env, {
   COMMON_RATE_LIMIT_WINDOW_MS: num({ devDefault: testOnly(1000) }),
   YA_ACCESS_TOKEN: str({ devDefault: testOnly("test") }),
   YA_UID: num({ devDefault: testOnly(1000) }),
+  REDIS_PORT: num({ devDefault: testOnly(6379) }),
+  REDIS_PASSWORD: str({ devDefault: testOnly("pass") }),
 });
