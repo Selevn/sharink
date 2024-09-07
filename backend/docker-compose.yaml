@@ -1,0 +1,50 @@
+version: '3'
+services:
+  api:
+    container_name: api
+    restart: always
+    build:
+      context: main
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    networks:
+      - sharink-network
+
+  redis:
+    container_name: redis
+    image: redis:5
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    restart: always
+    volumes:
+      - /path/to/local/dаta:/root/redis
+      - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_DATABASES=16
+    networks:
+      - sharink-network
+    env_file: "main/.env"
+
+  mongodb:
+    container_name: mp-mongodb
+    image: mongo:3.6
+    restart: always
+    environment:
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /dev/null
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    networks:
+      - sharink-network
+
+volumes:
+  mongo-data:
+networks:
+  sharink-network:
