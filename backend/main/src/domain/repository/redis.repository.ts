@@ -2,9 +2,12 @@ import {Redis} from "ioredis";
 import {env} from "@/common/utils/envConfig";
 import {CacheServiceInterface} from "@/domain/interfaces/cache-service.interface";
 import {CacheEntity, CacheID} from "@/domain/types";
+import {LoggerInterface} from "@/domain/interfaces/logger.interface";
+import {ConsoleLogger} from "@/common/utils/logger";
 
 export class RedisRepository implements CacheServiceInterface<CacheEntity, CacheID> {
     _redis;
+    _logger: LoggerInterface;
 
     constructor() {
         this._redis = new Redis(
@@ -14,6 +17,7 @@ export class RedisRepository implements CacheServiceInterface<CacheEntity, Cache
                 password: env.REDIS_PASSWORD,
             }
         );
+        this._logger = new ConsoleLogger('RedisRepository')
     }
 
     async healthCheck(): Promise<boolean> {
@@ -33,15 +37,19 @@ export class RedisRepository implements CacheServiceInterface<CacheEntity, Cache
 
     async get(id: CacheID): Promise<CacheEntity> {
         const data = await this._redis.get(id);
+        this._logger.log(`Got data by id: ${id}`)
         return JSON.parse(data!) as CacheEntity;
     }
 
     async has(id: CacheID): Promise<boolean> {
-        return Boolean(await this._redis.exists(id));
+        const res = Boolean(await this._redis.exists(id));
+        this._logger.log(`Data by id: ${id} existence: ${res}`)
+        return res
     }
 
     async set(id: CacheID, value: CacheEntity): Promise<boolean> {
         await this._redis.set(id, JSON.stringify(value), "EX", env.REDIS_TTL);
+        this._logger.log(`Set data with id: ${id}`)
         return true
     }
 }
