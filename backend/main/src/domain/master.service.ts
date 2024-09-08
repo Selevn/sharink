@@ -68,6 +68,7 @@ export class MasterService {
 
             if(databaseResult){
                 this._logger.log(`Database hash ${id} found`)
+                this.cacheService.set(id, databaseResult);
                 return databaseResult;
             } else {
                 this._logger.log(`Database hash ${id} not found`)
