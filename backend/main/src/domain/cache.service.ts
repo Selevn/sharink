@@ -9,16 +9,16 @@ export class CacheService implements CacheServiceInterface {
         this._storage = new Map();
     }
 
-    set(id: CacheID, value: CacheEntity): boolean {
+    async set(id: CacheID, value: CacheEntity): Promise<boolean> {
         this._storage.set(id, value);
         return true
     }
 
-    has(id: CacheID): boolean {
+    async has(id: CacheID): Promise<boolean> {
         return this._storage.has(id);
     }
 
-    get(id: CacheID): CacheEntity {
+    async get(id: CacheID): Promise<CacheEntity> {
         return this._storage.get(id) as CacheEntity
     }
 }

@@ -14,4 +14,14 @@ export const env = cleanEnv(process.env, {
   YA_UID: num({ devDefault: testOnly(1000) }),
   REDIS_PORT: num({ devDefault: testOnly(6379) }),
   REDIS_PASSWORD: str({ devDefault: testOnly("pass") }),
+  REDIS_USER: str({ devDefault: testOnly("pass") }),
+  REDIS_HOST: str({ devDefault: testOnly("pass") }),
+  REDIS_TTL: num({ devDefault: testOnly(3600) }),
+
+  MONGO_PORT: num({ devDefault: testOnly(6379) }),
+  MONGO_PASSWORD: str({ devDefault: testOnly("pass") }),
+  MONGO_LOGIN: str({ devDefault: testOnly("pass") }),
+  MONGO_HOST: str({ devDefault: testOnly("pass") }),
+  MONGO_DB_NAME: str({ devDefault: testOnly("pass") }),
+  MONGO_COLLECTION_NAME: str({ devDefault: testOnly("pass") }),
 });

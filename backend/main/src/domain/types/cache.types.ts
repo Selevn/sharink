@@ -8,3 +8,9 @@ export type CacheEntity = {
     cover: Cover,
     links: Record<LinkServices, Link>,
 }
+
+export type CacheEntityWithId = CacheEntity & {
+    id: CacheID,
+}
+
+export type Track = CacheEntity
