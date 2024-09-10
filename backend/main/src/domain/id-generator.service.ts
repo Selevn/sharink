@@ -1,5 +1,4 @@
-import {RequestEntity} from "@/domain/types/entity.types";
-import {Hash} from "@/domain/types/base.types";
+import {Hash, RequestEntity} from "@/lib";
 
 export class IdGeneratorService {
     public static GenerateId(){

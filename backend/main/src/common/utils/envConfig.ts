@@ -24,4 +24,7 @@ export const env = cleanEnv(process.env, {
   MONGO_HOST: str({ devDefault: testOnly("pass") }),
   MONGO_DB_NAME: str({ devDefault: testOnly("pass") }),
   MONGO_COLLECTION_NAME: str({ devDefault: testOnly("pass") }),
+
+  KAFKA_HOST: host({devDefault: 'localhost', default: 'kafka'}),
+  KAFKA_PORT: port({devDefault: 9092, default: 9092}),
 });

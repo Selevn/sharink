@@ -1,19 +1,36 @@
 import {CacheServiceInterface} from "@/domain/interfaces/cache-service.interface";
 import {DatabaseInterface, ScrapperInterface} from "@/domain/interfaces";
-import {CacheEntity, CacheID, Link, RequestEntity} from "@/domain/types";
+import {
+    CacheEntity,
+    CacheEntityUpdate,
+    CacheID,
+    KAFKA_TOPICS,
+    KafkaRequest,
+    KafkaResponse,
+    Link,
+    RequestEntity
+} from "@/domain/types";
 import {IdGeneratorService} from "@/domain/id-generator.service";
 import {LoggerInterface} from "@/domain/interfaces/logger.interface";
 import {ConsoleLogger} from "@/common/utils/logger";
+import {MicroserviceInterface} from "@/domain/interfaces/microservice.interface";
 
 export class MasterService {
     _logger: LoggerInterface;
+
     constructor(
-        private readonly databaseService: DatabaseInterface<CacheEntity, CacheID>,
-        private readonly cacheService: CacheServiceInterface<CacheEntity, CacheID>,
-        private readonly yandexScrapper: ScrapperInterface,
-        private readonly youtubeInterface: ScrapperInterface,
+        private readonly databaseService: DatabaseInterface<CacheEntity, CacheID, CacheEntityUpdate>,
+        private readonly cacheService: CacheServiceInterface<CacheEntity, CacheID, CacheEntityUpdate>,
+        private readonly microservice: MicroserviceInterface<KafkaRequest, KafkaResponse>,
     ) {
         this._logger = new ConsoleLogger(`MasterService`)
+        this.microservice.init(this.handleTrack.bind(this))
+    }
+
+    private async handleTrack(data: KafkaResponse): Promise<void> {
+        this._logger.log(`Updating ${data.id} in cache and database`)
+        this.cacheService.update(data.id, {origin: data.service, link: data.link})
+        this.databaseService.update(data.id, {origin: data.service, link: data.link})
     }
 
     async copyTrack(entity: RequestEntity): Promise<Link> {
@@ -22,34 +39,39 @@ export class MasterService {
         if (!await this.cacheService.has(hash)) {
             this._logger.log(`Hash does not exists ${entity.name}-${entity.author}`)
 
-            const yandexResult = this.yandexScrapper.getTrack(entity);
-            const youtubeResult = this.youtubeInterface.getTrack(entity);
-            const [yandexLink, youtubeLink] = (await Promise.allSettled([
-                yandexResult, youtubeResult
-            ])).map(item => item.status === 'fulfilled' ? item.value : '')
-
-            if(await this.cacheService.healthCheck()){
-                this.cacheService.set(hash, {
+            if (await this.cacheService.healthCheck()) {
+                await this.cacheService.set(hash, {
                     name: entity.name,
                     author: entity.author,
                     cover: entity.cover,
-                    links:
-                        {yandex: yandexLink, youtube: youtubeLink, spotify: ''}
+                    type: entity.entity,
+                    origin: entity.origin,
+                    links: {yandex: '', youtube: '', spotify: ''}
                 })
-                this._logger.log(`Cache service data set`)
+                this._logger.log(`Cache service data dummy set`)
             } else {
                 this._logger.warn(`Cache service healthcheck failed`)
             }
 
-            this.databaseService.create(hash, {
+            await this.databaseService.create(hash, {
                 name: entity.name,
                 author: entity.author,
                 cover: entity.cover,
+                type: entity.entity,
+                origin: entity.origin,
                 links:
-                    {yandex: yandexLink, youtube: youtubeLink, spotify: ''}
-
+                    {yandex: '', youtube: '', spotify: ''}
             })
-            this._logger.log(`Database service data set`)
+            this._logger.log(`Database service data dummy set`)
+
+            const kafkaRequest: KafkaRequest = {
+                id: hash,
+                name: entity.name,
+                author: entity.author,
+                entity: entity.entity
+            }
+            await this.microservice.send([KAFKA_TOPICS.YANDEX, KAFKA_TOPICS.YOUTUBE], kafkaRequest)
+
         } else {
             this._logger.log(`Hash already have track ${entity.name}-${entity.author}: ${hash}`)
         }
@@ -66,7 +88,7 @@ export class MasterService {
             this._logger.log(`Cache service hash ${id} not found - looking into db`)
             const databaseResult = await this.databaseService.read(id);
 
-            if(databaseResult){
+            if (databaseResult) {
                 this._logger.log(`Database hash ${id} found`)
                 this.cacheService.set(id, databaseResult);
                 return databaseResult;

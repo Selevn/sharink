@@ -1,13 +1,12 @@
-import {CacheEntity, CacheEntityWithId, CacheID} from "@/domain/types";
-import {DatabaseInterface} from "@/domain/interfaces";
+import {CacheEntity, CacheEntityUpdate, CacheEntityWithId, CacheID} from "@/domain/types";
+import {DatabaseInterface, LoggerInterface} from "@/domain/interfaces";
 import {
 MongoClient, Db, Collection
 } from "mongodb";
 import {env} from "@/common/utils/envConfig";
 import {ConsoleLogger} from "@/common/utils/logger";
-import {LoggerInterface} from "@/domain/interfaces/logger.interface";
 
-export class MongoDatabaseRepository implements DatabaseInterface<CacheEntityWithId,CacheID>{
+export class MongoDatabaseRepository implements DatabaseInterface<CacheEntityWithId,CacheID, CacheEntityUpdate>{
 
     client: MongoClient;
     db: Db | undefined;
@@ -39,5 +38,14 @@ export class MongoDatabaseRepository implements DatabaseInterface<CacheEntityWit
     async read(id: CacheID): Promise<CacheEntityWithId | null> {
         this._logger.log(`Reading ${id}`);
         return (await this.collection?.findOne({id})) || null;
+    }
+
+    async update(id: CacheID, value: CacheEntityUpdate): Promise<boolean> {
+        this._logger.log(`Updating ${id} with ${value}`);
+        return ((await this.collection?.updateOne({id}, {
+            $set: {
+                [`links.${value.origin}`]: value.link
+            }
+        }))?.matchedCount || 0) > 0
     }
 }

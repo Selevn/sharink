@@ -20,8 +20,8 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
     restart: always
     volumes:
-      - /docker/redis/dаta:/root/redis
-      - /docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./docker/redis/dаta:/root/redis
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_USER=${REDIS_USER}
@@ -40,13 +40,33 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_LOGIN}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - /docker/mongo/data:/data/db
+      - ./docker/mongo/data:/data/db
     ports:
       - ${MONGO_PORT}:${MONGO_PORT}
     command: mongod --smallfiles --logpath=/dev/null # --quiet
     networks:
       - sharink-network
     env_file: ".env"
+
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    hostname: zookeeper
+    ports:
+      - 2181:2181
+    networks:
+      - sharink-network
+
+  kafka:
+    image: ches/kafka
+    hostname: localhost
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      ZOOKEEPER_IP: zookeeper
+    networks:
+      - sharink-network
 
 volumes:
   mongo-data:

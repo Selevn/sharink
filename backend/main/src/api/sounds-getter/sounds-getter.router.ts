@@ -1,18 +1,19 @@
 import {OpenAPIRegistry} from "@asteasolutions/zod-to-openapi";
 import express, {type Request, type Response, type Router} from "express";
-import {string, z, ZodError} from "zod";
+import {z, ZodError} from "zod";
 
 import {createApiResponse} from "@/api-docs/openAPIResponseBuilders";
 import {ServiceResponse} from "@/common/models/serviceResponse";
 import {handleServiceResponse} from "@/common/utils/httpHandlers";
 import {MasterService} from "@/domain";
-import {CacheService} from "@/domain/cache.service";
 import {YandexMusicScrapper} from "@/domain/scrappers/yandex-music.scrapper";
 import {YoutubeMusicScrapper} from "@/domain/scrappers/youtube-music.scrapper";
 import {Create, CreateSchema, GetSchemaRequest} from "@/domain/models/request-response.model";
 import {zodErrorConverter} from "@/common/utils/zod-error.converter";
 import {RedisRepository} from "@/domain/repository/redis.repository";
 import {MongoDatabaseRepository} from "@/domain/repository/database.repository";
+import {KafkaRepository} from "@/domain/repository/kafka.repository";
+import {KafkaRequest, KafkaResponse} from "../../../../lib";
 
 export const soundsLinkGetterRegistry = new OpenAPIRegistry();
 export const soundsLinkGetterRouter: Router = express.Router();
@@ -45,8 +46,7 @@ soundsLinkGetterRegistry.registerPath({
 const masterService = new MasterService(
     new MongoDatabaseRepository(),
     new RedisRepository(),
-    new YandexMusicScrapper(),
-    new YoutubeMusicScrapper()
+    new KafkaRepository<KafkaRequest, KafkaResponse>()
 )
 
 soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
@@ -64,7 +64,9 @@ soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
     const id = await masterService.copyTrack({
         name: data.name,
         author: data.author,
-        cover: data.cover
+        cover: data.cover,
+        origin: 'yandex',
+        entity: 'track'
     })
     const serviceResponse = ServiceResponse.success("Id generated", {
         id

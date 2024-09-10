@@ -1,11 +1,11 @@
 import {Redis} from "ioredis";
 import {env} from "@/common/utils/envConfig";
 import {CacheServiceInterface} from "@/domain/interfaces/cache-service.interface";
-import {CacheEntity, CacheID} from "@/domain/types";
+import {CacheEntity, CacheEntityUpdate, CacheID} from "@/domain/types";
 import {LoggerInterface} from "@/domain/interfaces/logger.interface";
 import {ConsoleLogger} from "@/common/utils/logger";
 
-export class RedisRepository implements CacheServiceInterface<CacheEntity, CacheID> {
+export class RedisRepository implements CacheServiceInterface<CacheEntity, CacheID, CacheEntityUpdate> {
     _redis;
     _logger: LoggerInterface;
 
@@ -51,5 +51,11 @@ export class RedisRepository implements CacheServiceInterface<CacheEntity, Cache
         await this._redis.set(id, JSON.stringify(value), "EX", env.REDIS_TTL);
         this._logger.log(`Set data with id: ${id}`)
         return true
+    }
+
+    async update(id: CacheID, value: CacheEntityUpdate): Promise<boolean> {
+        const data = await this.get(id);
+        data.links[value.origin] = value.link;
+        return await this.set(id, data)
     }
 }
