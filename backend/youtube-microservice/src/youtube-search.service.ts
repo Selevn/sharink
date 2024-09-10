@@ -1,5 +1,5 @@
 import YTMusic from "ytmusic-api"
-import {Link, ScrapEntity, KafkaRequest} from '@/lib.js'
+import {Link, ScrapEntity, KafkaRequest} from 'sharink-lib'
 
 export class YoutubeMusicScrapper {
     private readonly api: YTMusic;

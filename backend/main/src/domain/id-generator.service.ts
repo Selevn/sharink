@@ -1,4 +1,4 @@
-import {Hash, RequestEntity} from "@/lib";
+import {Hash, RequestEntity} from "sharink-lib";
 
 export class IdGeneratorService {
     public static GenerateId(){

@@ -15,13 +15,6 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vitest/globals"]
   },
-  "references": [
-    {
-      "path": "../lib",
-      // add 'prepend' if you want to include the referenced project in your output file
-      "prepend": true,
-    }
-  ],
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

@@ -2,7 +2,7 @@ import { KafkaClient, Producer, Consumer } from 'kafka-node';
 import dotenv from "dotenv";
 import {env} from "@/utils/envConfig.js";
 import {YoutubeMusicScrapper} from "@/youtube-search.service.js";
-import { KAFKA_TOPICS, KafkaRequest, KafkaResponse, } from "@/lib.js";
+import { KAFKA_TOPICS, KafkaRequest, KafkaResponse, } from "sharink-lib";
 
 dotenv.config();
 

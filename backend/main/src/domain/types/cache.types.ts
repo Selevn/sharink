@@ -1,4 +1,4 @@
-import {Name, Author, Cover, LinkServices, Link, EntityType} from "@/lib";
+import {Name, Author, Cover, LinkServices, Link, EntityType} from "sharink-lib";
 
 export type CacheID = string;
 

@@ -3,7 +3,7 @@ import {ConsoleLogger} from "@/common/utils/logger";
 import {LoggerInterface} from "@/domain/interfaces/logger.interface";
 import {MicroserviceInterface} from "@/domain/interfaces/microservice.interface";
 import {env} from "@/common/utils/envConfig";
-import {KAFKA_TOPICS} from "@/lib";
+import {KAFKA_TOPICS} from "sharink-lib";
 
 export class KafkaRepository<T,K> implements MicroserviceInterface<T, K> {
 
