@@ -19,6 +19,7 @@ services:
     environment:
       - REDIS_HOST=${REDIS_HOST}
       - MONGO_HOST=${MONGO_HOST}
+      - KAFKA_HOST=${KAFKA_HOST}
 
   redis:
     container_name: ${REDIS_HOST}
@@ -66,8 +67,8 @@ services:
 
   kafka:
     image: ches/kafka
+    container_name: ${KAFKA_HOST}
     hostname: localhost
-    container_name: kafka
     ports:
       - 9092:9092
     environment:
