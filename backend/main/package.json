@@ -1,11 +1,8 @@
 {
-  "name": "express-typescript-boilerplate",
+  "name": "sharink-api",
   "version": "1.0.14",
-  "description": "An Express boilerplate backend",
-  "author": "Edwin Hernandez",
-  "repository": "edwinhern/express-typescript-2024",
   "license": "MIT",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "private": true,
   "scripts": {
     "dev": "tsc -b ../lib && tsx watch --clear-screen=false src/index.ts",
@@ -19,12 +16,11 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "sharink-lib": "file:../lib",
     "@asteasolutions/zod-to-openapi": "^7.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "envalid": "^8.0.0",
-    "express": "^4.19.2",
+    "express": "^5.0.0",
     "express-rate-limit": "^7.2.0",
     "helmet": "^7.1.0",
     "http-status-codes": "^2.3.0",
@@ -33,6 +29,7 @@
     "mongodb": "^6.8.1",
     "pino-http": "^10.0.0",
     "redis": "^4.7.0",
+    "sharink-lib": "../lib",
     "swagger-ui-express": "^5.0.0",
     "ym-api-meowed": "^1.3.4",
     "ytmusic-api": "^5.2.2",
@@ -62,10 +59,6 @@
       "biome check --apply --no-errors-on-unmatched"
     ]
   },
-  "eslintConfig": {
-    "extends": "../lib/.eslintrc"
-  },
-  "prettier": "../lib/.prettierrc.js",
   "tsup": {
     "entry": [
       "src",

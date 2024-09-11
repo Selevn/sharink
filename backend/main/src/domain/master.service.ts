@@ -1,5 +1,5 @@
 import { CacheServiceInterface } from "@/domain/interfaces/cache-service.interface";
-import { DatabaseInterface, ScrapperInterface } from "@/domain/interfaces";
+import { DatabaseInterface } from "@/domain/interfaces";
 import {
   CacheEntity,
   CacheEntityUpdate,

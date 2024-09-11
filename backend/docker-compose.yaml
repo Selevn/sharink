@@ -1,17 +1,24 @@
+name: sharink-backend
+
 version: '3'
 services:
   api:
     container_name: api
     restart: always
     build:
-      context: main
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./main/Dockerfile
     ports:
       - "8080:8080"
     depends_on:
       - redis
     networks:
       - sharink-network
+    env_file:
+      - ./main/.env
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - MONGO_HOST=${MONGO_HOST}
 
   redis:
     container_name: ${REDIS_HOST}

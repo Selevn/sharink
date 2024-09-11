@@ -1,13 +1,13 @@
 {
-  "name": "typescript-esm-tsx-starter",
+  "name": "sharink-yandex-microservice",
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "tsc -b ../lib && tsx watch src/server.ts",
     "start": "node ./dist/server.js",
-    "build": "rimraf ./dist && tsc && tsc-alias",
+    "build": "tsup",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "format:all": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|jsx|tsx)\"",
@@ -30,7 +30,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "sharink-lib": "file:../lib",
+    "sharink-lib": "../lib",
     "@types/kafka-node": "^3.0.0",
     "dotenv": "^16.4.5",
     "envalid": "^8.0.0",
@@ -39,8 +39,14 @@
     "kafkajs": "^2.2.4",
     "ym-api-meowed": "^1.3.4"
   },
-  "eslintConfig": {
-    "extends": "../lib/.eslintrc"
-  },
-  "prettier": "../lib/.prettierrc.js"
+  "tsup": {
+    "entry": [
+      "src",
+      "!src*//**//*__tests__*//**",
+      "!src*//***/*//*.test.*"
+    ],
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  }
 }
