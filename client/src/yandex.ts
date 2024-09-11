@@ -64,7 +64,7 @@ function getCopyLink(name: string, author: string, cover: string) {
           return;
         }
 
-        await navigator.clipboard.writeText(`http://sharink.com:8080/get/${response.data.responseObject.id}`);
+        await navigator.clipboard.writeText(`http://sharink.com:8080/track/${response.data.responseObject.id}/page`);
 
         console.log('Copy success');
       });

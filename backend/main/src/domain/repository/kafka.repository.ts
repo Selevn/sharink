@@ -1,4 +1,4 @@
-import { Consumer, KafkaClient, Message, Producer } from "kafka-node";
+import { Consumer, KafkaClient, Producer } from "kafka-node";
 import { ConsoleLogger } from "@/common/utils/logger";
 import { LoggerInterface } from "@/domain/interfaces/logger.interface";
 import { MicroserviceInterface } from "@/domain/interfaces/microservice.interface";
@@ -7,8 +7,8 @@ import { KAFKA_TOPICS } from "sharink-lib";
 
 export class KafkaRepository<T, K> implements MicroserviceInterface<T, K> {
   _client: KafkaClient;
-  _consumer: Consumer;
-  _producer: Producer;
+  _consumer: Consumer | undefined;
+  _producer: Producer | undefined;
   _logger: LoggerInterface;
 
   constructor() {
@@ -43,29 +43,30 @@ export class KafkaRepository<T, K> implements MicroserviceInterface<T, K> {
 
     const initClients = () => {
       this._consumer = new Consumer(
-          this._client,
-          [{ topic: KAFKA_TOPICS.MASTER, partition: 0 }],
-          { autoCommit: true }
+        this._client,
+        [{ topic: KAFKA_TOPICS.MASTER, partition: 0 }],
+        { autoCommit: true }
       );
+
       this._producer = new Producer(this._client);
 
       this._consumer.on("message", (data) => {
         this._logger.log(`Received message: ${data.key}-${data.value}`);
         handler(JSON.parse(data.value.toString()) as K);
       });
-    }
+    };
 
     topicExistence
       .then(() => {
         this._logger.log(`Topics were already initialized.`);
-        initClients()
+        initClients();
       })
-      .catch((e) => {
+      .catch(() => {
         this._logger.log(`Topics weren't initialize. Creating...`);
         topicCreate
           .then(() => {
             this._logger.log(`Topics created!`);
-            initClients()
+            initClients();
           })
           .catch((err) => {
             this._logger.log(`Topics creation error: ${err.message}`);
@@ -75,7 +76,7 @@ export class KafkaRepository<T, K> implements MicroserviceInterface<T, K> {
 
   send(routes: string[], data: T): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this._producer.send(
+      this._producer!.send(
         routes.map((item) => ({
           topic: item,
           partition: 0,
