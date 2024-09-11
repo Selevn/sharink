@@ -1,32 +1,24 @@
 {
   "compilerOptions": {
-    /* Base Options: */
-    "skipLibCheck": true, //Skip node_modules type checking
-    "target": "es2022", //Compile target
-    "lib": ["es2022"], //Tell TypeScript what built-in types to include
-
-    /* Module system: */
-    "esModuleInterop": true,
+    "target": "ESNext",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-
-    /* Import options: */
-    "allowJs": true, //Allow import .js
-    "resolveJsonModule": true, //Allow import .json
-    "allowSyntheticDefaultImports": true,
-
-    /* Strictness: */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitAny": false,
-
-    /* Directory */
-    "outDir": "dist",
-    "rootDir": "./src",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"]
-    }
+      "@/*": ["src/*"]
+    },
+    "moduleResolution": "Node16",
+    "outDir": "dist",
+    "importsNotUsedAsValues": "remove",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src/**/*"]
+  "references": [
+    {
+      "path": "../lib",
+    }
+  ],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

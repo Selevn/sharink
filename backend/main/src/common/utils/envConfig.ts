@@ -4,7 +4,10 @@ import { cleanEnv, host, num, port, str, testOnly } from "envalid";
 dotenv.config();
 
 export const env = cleanEnv(process.env, {
-  NODE_ENV: str({ devDefault: testOnly("test"), choices: ["development", "production", "test"] }),
+  NODE_ENV: str({
+    devDefault: testOnly("test"),
+    choices: ["development", "production", "test"],
+  }),
   HOST: host({ devDefault: testOnly("localhost") }),
   PORT: port({ devDefault: testOnly(3000) }),
   CORS_ORIGIN: str({ devDefault: testOnly("http://localhost:3000") }),
@@ -24,6 +27,6 @@ export const env = cleanEnv(process.env, {
   MONGO_DB_NAME: str({ devDefault: testOnly("pass") }),
   MONGO_COLLECTION_NAME: str({ devDefault: testOnly("pass") }),
 
-  KAFKA_HOST: host({devDefault: 'localhost', default: 'kafka'}),
-  KAFKA_PORT: port({devDefault: 9092, default: 9092}),
+  KAFKA_HOST: host({ devDefault: "localhost", default: "kafka" }),
+  KAFKA_PORT: port({ devDefault: 9092, default: 9092 }),
 });

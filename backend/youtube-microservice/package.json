@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsc -b ../lib && tsx watch src/server.ts",
     "start": "node ./dist/server.js",
     "build": "rimraf ./dist && tsc && tsc-alias",
     "lint": "eslint ./src",
@@ -39,5 +39,9 @@
     "kafkajs": "^2.2.4",
     "ym-api-meowed": "^1.3.4",
     "ytmusic-api": "^5.2.2"
-  }
+  },
+  "eslintConfig": {
+    "extends": "../lib/.eslintrc"
+  },
+  "prettier": "../lib/.prettierrc.js"
 }

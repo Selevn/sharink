@@ -9,7 +9,7 @@ import errorHandler from "@/common/middleware/errorHandler";
 import rateLimiter from "@/common/middleware/rateLimiter";
 import requestLogger from "@/common/middleware/requestLogger";
 import { env } from "@/common/utils/envConfig";
-import {soundsLinkGetterRouter} from "@/api/sounds-getter/sounds-getter.router";
+import { soundsLinkGetterRouter } from "@/api/sounds-getter/sounds-getter.router";
 
 const logger = pino({ name: "server start" });
 const app: Express = express();
@@ -18,9 +18,9 @@ const app: Express = express();
 app.set("trust proxy", true);
 
 app.use((req, res, next) => {
-    //console.log(req)
-    next()
-})
+  //console.log(req)
+  next();
+});
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

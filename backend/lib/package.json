@@ -4,5 +4,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }

@@ -8,7 +8,7 @@
   "main": "index.ts",
   "private": true,
   "scripts": {
-    "dev": "tsx watch --clear-screen=false src/index.ts",
+    "dev": "tsc -b ../lib && tsx watch --clear-screen=false src/index.ts",
     "build": "tsup",
     "start": "node dist/index.js",
     "clean": "rimraf dist coverage",
@@ -62,6 +62,10 @@
       "biome check --apply --no-errors-on-unmatched"
     ]
   },
+  "eslintConfig": {
+    "extends": "../lib/.eslintrc"
+  },
+  "prettier": "../lib/.prettierrc.js",
   "tsup": {
     "entry": [
       "src",

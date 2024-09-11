@@ -4,7 +4,8 @@
     "declaration": true,
     "declarationMap": true,
     "rootDir": ".",
-    "composite": true
+    "composite": true,
+    "outDir": "dist",
   },
   "references": []  // * Any project that is referenced must itself have a `references` array (which may be empty).
 }

@@ -1,4 +1,4 @@
-{
+module.exports = {
   "arrowParens": "always",
   "bracketSameLine": false,
   "bracketSpacing": true,
@@ -10,7 +10,7 @@
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
   "requirePragma": false,
-  "semi": false,
+  "semi": true,
   "singleAttributePerLine": false,
   "singleQuote": false,
   "tabWidth": 2,
