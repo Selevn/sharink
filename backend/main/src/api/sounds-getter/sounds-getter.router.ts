@@ -16,6 +16,7 @@ import { zodErrorConverter } from "@/common/utils/zod-error.converter";
 import { RedisRepository } from "@/domain/repository/redis.repository";
 import { MongoDatabaseRepository } from "@/domain/repository/database.repository";
 import { KafkaRepository } from "@/domain/repository/kafka.repository";
+import { TrackPageService } from "@/domain/track-page.service";
 
 export const soundsLinkGetterRegistry = new OpenAPIRegistry();
 export const soundsLinkGetterRouter: Router = express.Router();
@@ -38,16 +39,25 @@ soundsLinkGetterRegistry.registerPath({
 
 soundsLinkGetterRegistry.registerPath({
   method: "get",
-  path: "/get/{id}",
+  path: "/track/{id}",
   request: { params: GetSchemaRequest.shape.params },
-  tags: ["Get sounds by link"],
+  tags: ["Get track by link"],
+  responses: createApiResponse(z.any(), "Success"),
+});
+
+soundsLinkGetterRegistry.registerPath({
+  method: "get",
+  path: "/track/{id}/page",
+  request: { params: GetSchemaRequest.shape.params },
+  tags: ["Get track page by link"],
   responses: createApiResponse(z.any(), "Success"),
 });
 
 const masterService = new MasterService(
   new MongoDatabaseRepository(),
   new RedisRepository(),
-  new KafkaRepository<KafkaRequest, KafkaResponse>()
+  new KafkaRepository<KafkaRequest, KafkaResponse>(),
+  new TrackPageService()
 );
 
 soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
@@ -72,17 +82,37 @@ soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {
     origin: "yandex",
     entity: "track",
   });
+
   const serviceResponse = ServiceResponse.success("Id generated", {
     id,
   });
+
   return handleServiceResponse(serviceResponse, res);
 });
 
-soundsLinkGetterRouter.get("/get/:id", async (_req: Request, res: Response) => {
-  const id = _req.params.id;
-  const serviceResponse = ServiceResponse.success(
-    "Track found",
-    await masterService.getTrack(id)
-  );
-  return handleServiceResponse(serviceResponse, res);
-});
+soundsLinkGetterRouter.get(
+  "/track/:id",
+  async (_req: Request, res: Response) => {
+    const id = _req.params.id;
+    const serviceResponse = ServiceResponse.success(
+      "Track found",
+      await masterService.getTrack(id)
+    );
+
+    return handleServiceResponse(serviceResponse, res);
+  }
+);
+
+soundsLinkGetterRouter.get(
+  "/track/:id/page",
+  async (_req: Request, res: Response) => {
+    const id = _req.params.id;
+
+    const trackPage = await masterService.getTrackPage(id);
+    if (trackPage) {
+      return res.status(200).send(trackPage);
+    }
+
+    return res.status(404).send();
+  }
+);

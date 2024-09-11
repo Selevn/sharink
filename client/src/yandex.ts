@@ -43,7 +43,11 @@ function initialize() {
         newButton.addEventListener('click', () => {
           const trackName = document.querySelector<HTMLLinkElement>(TRACK_NAME_SELECTOR)!.title;
           const trackAuthor = document.querySelector<HTMLLinkElement>(TRACK_AUTHOR_SELECTOR)!.title;
-          const trackCover = document.querySelector<HTMLImageElement>(TRACK_COVER_IMG_SELECTOR)!.src;
+          const trackCoverRaw = document.querySelector<HTMLImageElement>(TRACK_COVER_IMG_SELECTOR)!.src;
+
+          const trackCoverUrlSegments = trackCoverRaw.split('/');
+          trackCoverUrlSegments[trackCoverUrlSegments.length - 1] = '400x400';
+          const trackCover = trackCoverUrlSegments.join('/');
 
           getCopyLink(trackName, trackAuthor, trackCover);
         });
@@ -64,7 +68,7 @@ function getCopyLink(name: string, author: string, cover: string) {
           return;
         }
 
-        await navigator.clipboard.writeText(`http://sharink.com:8080/get/${response.data.responseObject.id}`);
+        await navigator.clipboard.writeText(`http://sharink.com:8080/track/${response.data.responseObject.id}/page`);
 
         console.log('Copy success');
       });
