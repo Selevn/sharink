@@ -17,12 +17,6 @@ export class KafkaRepository<T, K> implements MicroserviceInterface<T, K> {
     this._client = new KafkaClient({
       kafkaHost: `${env.KAFKA_HOST}:${env.KAFKA_PORT}`,
     });
-    this._consumer = new Consumer(
-      this._client,
-      [{ topic: KAFKA_TOPICS.MASTER, partition: 0 }],
-      { autoCommit: true }
-    );
-    this._producer = new Producer(this._client);
   }
 
   init(handler: (data: K) => void): void {
@@ -47,25 +41,36 @@ export class KafkaRepository<T, K> implements MicroserviceInterface<T, K> {
       );
     });
 
+    const initClients = () => {
+      this._consumer = new Consumer(
+          this._client,
+          [{ topic: KAFKA_TOPICS.MASTER, partition: 0 }],
+          { autoCommit: true }
+      );
+      this._producer = new Producer(this._client);
+
+      this._consumer.on("message", (data) => {
+        this._logger.log(`Received message: ${data.key}-${data.value}`);
+        handler(JSON.parse(data.value.toString()) as K);
+      });
+    }
+
     topicExistence
       .then(() => {
         this._logger.log(`Topics were already initialized.`);
+        initClients()
       })
       .catch((e) => {
         this._logger.log(`Topics weren't initialize. Creating...`);
         topicCreate
           .then(() => {
             this._logger.log(`Topics created!`);
+            initClients()
           })
           .catch((err) => {
             this._logger.log(`Topics creation error: ${err.message}`);
           });
       });
-
-    this._consumer.on("message", (data) => {
-      this._logger.log(`Received message: ${data.key}-${data.value}`);
-      handler(JSON.parse(data.value.toString()) as K);
-    });
   }
 
   send(routes: string[], data: T): Promise<boolean> {

@@ -5,38 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b72a20ee-3077-43d7-b5d3-cd8ab1d4fad8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/create_topic.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lib/constants.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lib/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lib/lib.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/lib/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/main/src/domain/interfaces/microservice.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/main/src/domain/repository/kafka.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/main/src/domain/utils/kafka-api-promisifyer.util.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/main/src/lib/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/yandex-microservice/src/constants/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/yandex-microservice/src/lib.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/yandex-microservice/src/utils/envConfig.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/yandex-microservice/src/yandex-search.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/api/sounds-getter/sounds-getter.router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/api/sounds-getter/sounds-getter.router.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/common/utils/envConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/common/utils/envConfig.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/cache.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/id-generator.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/id-generator.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/interfaces/cache-service.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/interfaces/cache-service.interface.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/interfaces/database.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/interfaces/database.interface.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/interfaces/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/interfaces/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/master.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/master.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/repository/database.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/repository/database.repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/repository/redis.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/repository/redis.repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/types/base.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/lib/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/types/cache.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/types/cache.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/types/entity.types.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/main/src/domain/repository/kafka.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main/src/domain/repository/kafka.repository.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +198,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/backend/main/src/domain/master.service.ts</url>
-          <line>26</line>
+          <line>19</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
