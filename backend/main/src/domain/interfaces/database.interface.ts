@@ -1,7 +1,9 @@
-export interface DatabaseInterface<T, K> {
-    create(id: K, value: T): Promise<boolean>
+export interface DatabaseInterface<T, K, M> {
+  create(id: K, value: T): Promise<boolean>;
 
-    delete(id: K): Promise<boolean>
+  update(id: K, value: M): Promise<boolean>;
 
-    read(id: K): Promise<T | null>
+  delete(id: K): Promise<boolean>;
+
+  read(id: K): Promise<T | null>;
 }

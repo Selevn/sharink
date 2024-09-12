@@ -1,5 +1,5 @@
-import {RequestEntity, Link} from "@/domain/types";
+import { RequestEntity, Link } from "@/domain/types";
 
 export interface ScrapperInterface {
-    getTrack(entity: RequestEntity): Promise<Link>
+  getTrack(entity: RequestEntity): Promise<Link>;
 }

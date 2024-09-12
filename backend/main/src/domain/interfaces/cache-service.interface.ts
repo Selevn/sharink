@@ -1,9 +1,11 @@
-export interface CacheServiceInterface<T, K> {
-    healthCheck(): Promise<boolean>
+export interface CacheServiceInterface<T, K, M> {
+  healthCheck(): Promise<boolean>;
 
-    set(id: K, value: T): Promise<boolean>
+  set(id: K, value: T): Promise<boolean>;
 
-    has(id: K): Promise<boolean>
+  update(id: K, value: M): Promise<boolean>;
 
-    get(id: K): Promise<T>
+  has(id: K): Promise<boolean>;
+
+  get(id: K): Promise<T>;
 }

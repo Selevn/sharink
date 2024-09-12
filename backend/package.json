@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:main": "npm run dev --workspace=main",
+    "dev:yandex": "npm run dev --workspace=yandex-microservice",
+    "dev:youtube": "npm run dev --workspace=youtube-microservice",
+    "build-all": "npm run build --workspaces --if-present",
+    "install-all": "npm install --workspaces --if-present"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "workspaces": [
+    "lib",
+    "main",
+    "yandex-microservice",
+    "youtube-microservice"
+  ]
+}

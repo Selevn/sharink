@@ -1,17 +1,25 @@
+name: sharink-backend
+
 version: '3'
 services:
   api:
     container_name: api
     restart: always
     build:
-      context: main
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./main/Dockerfile
     ports:
       - "8080:8080"
     depends_on:
       - redis
     networks:
       - sharink-network
+    env_file:
+      - ./main/.env
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - MONGO_HOST=${MONGO_HOST}
+      - KAFKA_HOST=${KAFKA_HOST}
 
   redis:
     container_name: ${REDIS_HOST}
@@ -20,8 +28,8 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
     restart: always
     volumes:
-      - /docker/redis/dаta:/root/redis
-      - /docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./docker/redis/dаta:/root/redis
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_USER=${REDIS_USER}
@@ -40,13 +48,33 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_LOGIN}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - /docker/mongo/data:/data/db
+      - ./docker/mongo/data:/data/db
     ports:
       - ${MONGO_PORT}:${MONGO_PORT}
     command: mongod --smallfiles --logpath=/dev/null # --quiet
     networks:
       - sharink-network
     env_file: ".env"
+
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    hostname: zookeeper
+    ports:
+      - 2181:2181
+    networks:
+      - sharink-network
+
+  kafka:
+    image: ches/kafka
+    container_name: ${KAFKA_HOST}
+    hostname: localhost
+    ports:
+      - 9092:9092
+    environment:
+      ZOOKEEPER_IP: zookeeper
+    networks:
+      - sharink-network
 
 volumes:
   mongo-data:
