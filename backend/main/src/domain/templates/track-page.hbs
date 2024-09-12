@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; img-src https://avatars.yandex.net 'self' data: https: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * https://encrypted-tbn0.gstatic.com/;
+   img-src * 'self' https://encrypted-tbn0.gstatic.com/ encrypted-tbn0.gstatic.com/* data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+   style-src  'self' 'unsafe-inline' *">
     <title>Sharink {{name}} - {{author}}</title>
 </head>
 <body>
@@ -13,6 +15,7 @@
             <span>{{name}}</span>
             <span>{{author}}</span>
         </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmCy16nhIbV3pI1qLYHMJKwbH2458oiC9EmA&s" crossorigin="anonymous" referrerpolicy="no-referrer" alt="alt">
         <div class="track-links">
             <ul>
                 {{#each links}}

@@ -8,28 +8,36 @@ import errorHandler from "@/common/middleware/errorHandler";
 import rateLimiter from "@/common/middleware/rateLimiter";
 import requestLogger from "@/common/middleware/requestLogger";
 import { soundsLinkGetterRouter } from "@/api/sounds-getter/sounds-getter.router";
+import cors from "cors";
+import { env } from "@/common/utils/envConfig";
 
 const logger = pino({ name: "server start" });
 const app: Express = express();
 
+app.use((req, res, next) => {
+  console.log(req.path);
+  next();
+});
+
 // Set the application to trust the reverse proxy
 app.set("trust proxy", true);
 
-app.use((req, res, next) => {
-  //console.log(req)
-  next();
-});
+/*app.get("/track-image", (req: express.Request, res: express.Response) => {
+
+})*/
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      "img-src": ["'self'", "avatars.yandex.net"],
+app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "img-src": ["'self'", "https://avatars.yandex.net"], //todo: add here youtube and spotify
+      },
     },
-  },
-}));
+  })
+);
 app.use(rateLimiter);
 
 // Request logging
