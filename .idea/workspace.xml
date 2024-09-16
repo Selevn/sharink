@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b72a20ee-3077-43d7-b5d3-cd8ab1d4fad8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/yandex-microservice/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/youtube-microservice/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/yandex-microservice/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/yandex-microservice/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/youtube-microservice/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/youtube-microservice/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="tsconfig.json" />
+        <option value="JavaScript File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/manifest-downgrade" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2kukiiSkgFMYrJmdHGlJnbN2EiV" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.backend/docker-compose.yaml.api: Compose Deployment.executor": "Run",
+    "Docker.backend/docker-compose.yaml.redis: Compose Deployment.executor": "Run",
+    "Docker.backend/docker-compose.yaml.yandex: Compose Deployment.executor": "Run",
+    "Docker.backend/docker-compose.yaml.youtube: Compose Deployment.executor": "Run",
+    "Docker.yandex-microservice/Dockerfile.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "dev",
+    "javascript.nodejs.core.library.configured.version": "20.13.1",
+    "javascript.nodejs.core.library.typings.version": "20.13.0",
+    "last_opened_file_path": "C:/Users/i.skorodumov/WebstormProjects/sharink/backend/youtube-microservice",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
+    "npm.dev (1).executor": "Run",
+    "npm.dev.executor": "Run",
+    "npm.dev:main.executor": "Run",
+    "npm.install-all.executor": "Run",
+    "npm.start.executor": "Run",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\youtube-microservice" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\yandex-microservice" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\main\src\domain\interfaces" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\main\src\domain\repository" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\main\src" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\yandex-microservice" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\main" />
+      <recent name="C:\Users\i.skorodumov\WebstormProjects\sharink\backend\src\domain\interfaces" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Docker.backend/docker-compose.yaml.yandex: Compose Deployment">
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile" />
+      <method v="2" />
+    </configuration>
+    <configuration name="backend/docker-compose.yaml.api: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="api" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="backend/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="backend/docker-compose.yaml.redis: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="redis" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="backend/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="backend/docker-compose.yaml.yandex: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="yandex" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="backend/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="backend/docker-compose.yaml.youtube: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="youtube" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="backend/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="yandex-microservice/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="backend/yandex-microservice/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.backend/docker-compose.yaml.yandex: Compose Deployment" />
+        <item itemvalue="Docker.backend/docker-compose.yaml.api: Compose Deployment" />
+        <item itemvalue="Docker.backend/docker-compose.yaml.redis: Compose Deployment" />
+        <item itemvalue="Docker.backend/docker-compose.yaml.youtube: Compose Deployment" />
+        <item itemvalue="Docker.yandex-microservice/Dockerfile" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b72a20ee-3077-43d7-b5d3-cd8ab1d4fad8" name="Changes" comment="" />
+      <created>1724140977475</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1724140977475</updated>
+      <workItem from="1724140978669" duration="5276000" />
+      <workItem from="1724304795025" duration="576000" />
+      <workItem from="1724587018945" duration="5207000" />
+      <workItem from="1724652580185" duration="301000" />
+      <workItem from="1724652894728" duration="236000" />
+      <workItem from="1724656859535" duration="863000" />
+      <workItem from="1725196772244" duration="11558000" />
+      <workItem from="1725256231810" duration="15000" />
+      <workItem from="1725353144329" duration="7552000" />
+      <workItem from="1725433897449" duration="1000" />
+      <workItem from="1725433924524" duration="54000" />
+      <workItem from="1725439026189" duration="3155000" />
+      <workItem from="1725598603443" duration="2739000" />
+      <workItem from="1725638836991" duration="582000" />
+      <workItem from="1725684968812" duration="12595000" />
+      <workItem from="1725714573240" duration="9797000" />
+      <workItem from="1725791247817" duration="1101000" />
+      <workItem from="1725798258625" duration="8431000" />
+      <workItem from="1725868605252" duration="25113000" />
+      <workItem from="1725945355442" duration="1446000" />
+      <workItem from="1726468362539" duration="655000" />
+      <workItem from="1726491132957" duration="4394000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/backend/main/src/domain/master.service.ts</url>
+          <line>19</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

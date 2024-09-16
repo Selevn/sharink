@@ -1,6 +1,6 @@
 name: sharink-backend
 
-version: '3'
+version: '3.4'
 services:
   api:
     container_name: api
@@ -14,12 +14,67 @@ services:
       - redis
     networks:
       - sharink-network
-    env_file:
-      - ./main/.env
     environment:
       - REDIS_HOST=${REDIS_HOST}
       - MONGO_HOST=${MONGO_HOST}
       - KAFKA_HOST=${KAFKA_HOST}
+      - COMMON_RATE_LIMIT_MAX_REQUESTS=${COMMON_RATE_LIMIT_MAX_REQUESTS}
+      - COMMON_RATE_LIMIT_WINDOW_MS=${COMMON_RATE_LIMIT_WINDOW_MS}
+      - CORS_ORIGIN=${CORS_ORIGIN}
+      - HOST=${HOST}
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - YA_ACCESS_TOKEN=${YA_ACCESS_TOKEN}
+      - YA_UID=${YA_UID}
+
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_USER=${REDIS_USER}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_TTL=${REDIS_TTL}
+
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_LOGIN=${MONGO_LOGIN}
+      - MONGO_HOST=${MONGO_HOST}
+      - MONGO_DB_NAME=${MONGO_DB_NAME}
+      - MONGO_COLLECTION_NAME=${MONGO_COLLECTION_NAME}
+
+      - KAFKA_HOST=${KAFKA_HOST}
+      - KAFKA_PORT=${KAFKA_PORT}
+
+  yandex:
+    container_name: yandex
+    restart: always
+    build:
+      context: .
+      dockerfile: ./yandex-microservice/Dockerfile
+    depends_on:
+      - api
+      - kafka
+    networks:
+      - sharink-network
+    environment:
+      - YA_ACCESS_TOKEN=${YA_ACCESS_TOKEN}
+      - YA_UID=${YA_UID}
+
+      - KAFKA_HOST=${KAFKA_HOST}
+      - KAFKA_PORT=${KAFKA_PORT}
+
+  youtube:
+    container_name: youtube
+    restart: always
+    build:
+      context: .
+      dockerfile: ./youtube-microservice/Dockerfile
+    depends_on:
+      - api
+      - kafka
+    networks:
+      - sharink-network
+    environment:
+      - KAFKA_HOST=${KAFKA_HOST}
+      - KAFKA_PORT=${KAFKA_PORT}
 
   redis:
     container_name: ${REDIS_HOST}
