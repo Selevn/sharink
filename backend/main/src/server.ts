@@ -1,4 +1,3 @@
-import cors from "cors";
 import express, { type Express } from "express";
 import helmet from "helmet";
 import { pino } from "pino";
@@ -8,7 +7,6 @@ import { healthCheckRouter } from "@/api/healthCheck/healthCheckRouter";
 import errorHandler from "@/common/middleware/errorHandler";
 import rateLimiter from "@/common/middleware/rateLimiter";
 import requestLogger from "@/common/middleware/requestLogger";
-import { env } from "@/common/utils/envConfig";
 import { soundsLinkGetterRouter } from "@/api/sounds-getter/sounds-getter.router";
 
 const logger = pino({ name: "server start" });
@@ -25,7 +23,13 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      "img-src": ["'self'", "avatars.yandex.net"],
+    },
+  },
+}));
 app.use(rateLimiter);
 
 // Request logging
