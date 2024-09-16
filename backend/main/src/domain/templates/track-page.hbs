@@ -9,19 +9,27 @@
     <title>Sharink {{name}} - {{author}}</title>
 </head>
 <body>
-    <main>
-        <div class="background-image"></div>
-        <div class="track-info">
-            <span>{{name}}</span>
-            <span>{{author}}</span>
+    <div class="background">
+        <img class="background-image" src="{{cover}}" />
+    </div>
+    <main class="track-layout">
+        <div class="track-cover">
+            <img class="track-cover__image" src="{{cover}}" />
         </div>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmCy16nhIbV3pI1qLYHMJKwbH2458oiC9EmA&s" crossorigin="anonymous" referrerpolicy="no-referrer" alt="alt">
+        <header class="track-info">
+            <span class="track-info__title">{{author}} - {{name}}</span>
+        </header>
         <div class="track-links">
-            <ul>
-                {{#each links}}
-                    <li>{{@key}} - {{this}}</li>
-                {{/each}}
-            </ul>
+            {{#each links}}
+                {{#if this}}
+                    <a class="track-link" href="{{this}}" target="_blank" rel="noopener noreferrer">
+                        <div class="track-link__content">
+                            <img class="track-link__service-image" src="{{musicServiceLogo @key}}" />
+                            <div class="track-link__play-button">Play</div>
+                        </div>
+                    </a>
+                {{/if}}
+            {{/each}}
         </div>
     </main>
 </body>
@@ -29,24 +37,68 @@
     body, html {
         margin: 0;
         padding: 0;
-        height: 100%;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+
+    body {
+        margin-top: 150px;
+    }
+
+    .background {
+        overflow: hidden;
+        
+        z-index: -1;
+        
+        height: 200%;
+        width: 200%;
+        top: -50%;
+        left: -50%;
+
+        display: block;
+        
+        position: fixed;
+        
+        background-color: #fff;
     }
 
     .background-image {
-        width: 100%;
-        height: 100vh;
-
         position: absolute;
+        
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 50%;
+        
+        max-width: none;
+        min-width: 55%;
+        min-height: 55%;
+        margin: auto;
 
-        filter: blur(8px);
-        -webkit-filter: blur(4px);
+        transform: translate(-50%, 0);
+        -webkit-transform: translate(-50%, 0);
+                
+        filter: blur(25px);
+        -webkit-filter: blur(25px);
 
-        background-image: url({{cover}});
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
+        opacity: 0.8;
+    }
 
-        z-index: -1;
+    .track-layout {
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .track-cover {
+        width: 240px;
+        height: 240px;
+        margin: 0 auto;
+    }
+
+    .track-cover__image {
+        width: 100%;
     }
 
     .track-info {
@@ -56,18 +108,63 @@
 
         filter: none;
 
-        color: white;
+        padding: 20px 0;
+    }
+
+    .track-info__title {        
+        text-align: center;
+
+        font-size: 28px;
+        font-weight: 600;
     }
 
     .track-links {
         display: flex;
         flex-direction: column;
-        gap: 10px;
 
         border-radius: 10px;
-        border: 1px solid red;
+        background-color: rgb(248, 245, 245);
 
-        color: white
+        color: black;
+
+        overflow: hidden;
+    }
+
+    .track-link {
+        color: inherit;
+        text-decoration: none;
+
+        padding: 12px 15px;
+
+        border-top: 1px solid rgb(223, 223, 223);
+    }
+
+    .track-link:hover {
+        background-color: rgb(223, 223, 223);
+    }
+
+    .track-link:first-child {
+        border-top: none;
+    }
+
+    .track-link__service-image {
+        max-width: 200px;
+        max-height: 40px;
+    }
+
+    .track-link__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .track-link__play-button {
+        width: 30px;
+        padding: 10px;
+        border-radius: 5px;
+
+        background-color: rgb(209, 209, 209);
     }
 </style>
 </html>

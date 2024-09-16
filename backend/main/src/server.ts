@@ -33,7 +33,14 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        "img-src": ["'self'", "https://avatars.yandex.net"], //todo: add here youtube and spotify
+        "img-src": [
+          "'self'",
+          "https://avatars.yandex.net",
+          "https://yastatic.net",
+          "https://services.linkfire.com",
+          "https://open.spotifycdn.com",
+          "https://storage.googleapis.com",
+        ], //todo: add here youtube and spotify
       },
     },
   })

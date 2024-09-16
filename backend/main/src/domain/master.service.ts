@@ -73,30 +73,25 @@ export class MasterService {
 
     this._logger.log(`Hash does not exists ${entity.name}-${entity.author}`);
 
-    const isCacheServiceHealthy = await this.cacheService.healthCheck();
-    if (isCacheServiceHealthy) {
-      await this.cacheService.set(hash, {
-        name: entity.name,
-        author: entity.author,
-        cover: entity.cover,
-        type: entity.entity,
-        origin: entity.origin,
-        links: { yandex: "", youtube: "", spotify: "" },
-      });
-
-      this._logger.log(`Cache service data dummy set`);
-    } else {
-      this._logger.warn(`Cache service healthcheck failed`);
-    }
-
-    await this.databaseService.create(hash, {
+    const track = {
       name: entity.name,
       author: entity.author,
       cover: entity.cover,
       type: entity.entity,
       origin: entity.origin,
       links: { yandex: "", youtube: "", spotify: "" },
-    });
+    };
+
+    const isCacheServiceHealthy = await this.cacheService.healthCheck();
+    if (isCacheServiceHealthy) {
+      await this.cacheService.set(hash, track);
+
+      this._logger.log(`Cache service data dummy set`);
+    } else {
+      this._logger.warn(`Cache service healthcheck failed`);
+    }
+
+    await this.databaseService.create(hash, track);
 
     this._logger.log(`Database service data dummy set`);
 
