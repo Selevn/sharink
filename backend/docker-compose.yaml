@@ -4,7 +4,7 @@ version: '3.4'
 services:
   api:
     container_name: api
-    restart: always
+    restart: unless-stopped
     build:
       context: .
       dockerfile: ./main/Dockerfile
@@ -24,8 +24,6 @@ services:
       - HOST=${HOST}
       - NODE_ENV=${NODE_ENV}
       - PORT=${PORT}
-      - YA_ACCESS_TOKEN=${YA_ACCESS_TOKEN}
-      - YA_UID=${YA_UID}
 
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PORT=${REDIS_PORT}
@@ -45,7 +43,7 @@ services:
 
   yandex:
     container_name: yandex
-    restart: always
+    restart: unless-stopped
     build:
       context: .
       dockerfile: ./yandex-microservice/Dockerfile
@@ -63,7 +61,7 @@ services:
 
   youtube:
     container_name: youtube
-    restart: always
+    restart: unless-stopped
     build:
       context: .
       dockerfile: ./youtube-microservice/Dockerfile
@@ -81,7 +79,7 @@ services:
     image: redis:5
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./docker/redis/dаta:/root/redis
       - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
@@ -96,7 +94,7 @@ services:
   mongodb:
     container_name: ${MONGO_HOST}
     image: mongo:3.6
-    restart: always
+    restart: unless-stopped
     environment:
       MONGO_DATA_DIR: /data/db
       MONGO_LOG_DIR: /dev/null
@@ -123,7 +121,10 @@ services:
   kafka:
     image: ches/kafka
     container_name: ${KAFKA_HOST}
-    hostname: localhost
+    hostname: ${KAFKA_HOST}
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
     ports:
       - 9092:9092
     environment:
