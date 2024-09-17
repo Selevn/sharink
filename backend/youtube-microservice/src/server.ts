@@ -62,5 +62,5 @@ consumer.on("message", (message) => {
 });
 
 consumer.on("error", (err) => {
-  console.error("Consumer error:", err);
+  throw new Error(err.message);
 });
