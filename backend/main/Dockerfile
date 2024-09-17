@@ -9,6 +9,4 @@ COPY main main
 RUN npm run install-all
 RUN npm run build-all
 
-EXPOSE 8080
-
 CMD ["node", "/usr/src/app/main/dist"]

@@ -9,9 +9,11 @@ services:
       context: .
       dockerfile: ./main/Dockerfile
     ports:
-      - "8080:8080"
+      - "${PORT}:${PORT}"
     depends_on:
       - redis
+      - kafka
+      - mongodb
     networks:
       - sharink-network
     environment:
