@@ -4,9 +4,9 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 COPY lib lib
-COPY main main
+COPY yandex-microservice yandex-microservice
 
 RUN npm run install-all
 RUN npm run build-all
 
-CMD ["node", "/usr/src/app/main/dist"]
+CMD ["node", "/usr/src/app/yandex-microservice/dist/server.cjs"]
