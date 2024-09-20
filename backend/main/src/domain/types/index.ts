@@ -1,2 +1,2 @@
-export * from "../../../../lib/index";
+export * from "sharink-lib/types";
 export * from "./cache.types";
