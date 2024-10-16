@@ -6,7 +6,12 @@ import { TrackPageServiceInterface } from "./interfaces";
 import { TrackPage, Track } from "./types";
 
 export class TrackPageService implements TrackPageServiceInterface {
-  constructor() {
+  readonly _trackPageFileName = "track-page.hbs";
+  readonly _templatesPath: string;
+
+  constructor(templatesPath: string) {
+    this._templatesPath = templatesPath;
+
     Handlebars.registerHelper("musicServiceLogo", (serviceName: string) => {
       switch (serviceName) {
         case "yandex": {
@@ -26,8 +31,10 @@ export class TrackPageService implements TrackPageServiceInterface {
   }
 
   getTrackPage(track: Track): TrackPage {
-    const filePath = path.join(__dirname, "templates", "track-page.hbs");
-    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const fileContent = fs.readFileSync(
+      path.join(this._templatesPath, this._trackPageFileName),
+      "utf-8"
+    );
     const page = Handlebars.compile(fileContent)(track);
 
     return page;

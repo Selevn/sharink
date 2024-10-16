@@ -59,19 +59,5 @@
     "*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
       "biome check --apply --no-errors-on-unmatched"
     ]
-  },
-  "tsup": {
-    "entry": [
-      "src",
-      "!src/**/__tests__/**",
-      "!src/**/*.test.*"
-    ],
-    "splitting": false,
-    "sourcemap": true,
-    "clean": true,
-    "loader": {
-      ".hbs": "text",
-      ".html": "text"
-    }
   }
 }

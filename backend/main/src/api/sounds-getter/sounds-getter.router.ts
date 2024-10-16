@@ -2,6 +2,7 @@ import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import express, { type Request, type Response, type Router } from "express";
 import { z, ZodError } from "zod";
 import { KafkaRequest, KafkaResponse } from "sharink-lib";
+import path from "path";
 
 import { createApiResponse } from "@/api-docs/openAPIResponseBuilders";
 import { ServiceResponse } from "@/common/models/serviceResponse";
@@ -53,11 +54,12 @@ soundsLinkGetterRegistry.registerPath({
   responses: createApiResponse(z.any(), "Success"),
 });
 
+const templatesPath = path.resolve(require.main!.filename, "../", "templates");
 const masterService = new MasterService(
   new MongoDatabaseRepository(),
   new RedisRepository(),
   new KafkaRepository<KafkaRequest, KafkaResponse>(),
-  new TrackPageService()
+  new TrackPageService(templatesPath)
 );
 
 soundsLinkGetterRouter.post("/create", async (_req: Request, res: Response) => {

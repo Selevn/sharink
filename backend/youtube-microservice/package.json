@@ -40,15 +40,5 @@
     "kafkajs": "^2.2.4",
     "ym-api-meowed": "^1.3.4",
     "ytmusic-api": "^5.2.2"
-  },
-  "tsup": {
-    "entry": [
-      "src",
-      "!src*//**//*__tests__*//**",
-      "!src*//***/*//*.test.*"
-    ],
-    "splitting": false,
-    "sourcemap": true,
-    "clean": true
   }
 }
