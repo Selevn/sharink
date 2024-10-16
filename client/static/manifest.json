@@ -6,25 +6,27 @@
   "description": "Share your favorite tracks with friend independent from music platform",
 
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "icons/share.png"
   },
   "host_permissions": [
     "http://*/*",
     "http://sharink.com:8080/*"
   ],
   "background": {
-    "service_worker": "background.bundle.js"
+    "service_worker": "sharink-background.bundle.js"
   },
   "content_scripts": [
     {
       "matches": ["*://*.music.yandex.by/*", "*://*.music.yandex.ru/*"],
-      "js": ["yandex.bundle.js"],
+      "js": ["sharink-yandex.bundle.js"],
+      "css": ["assets/sharink-yandex.css"],
       "run_at":"document_end"
     },
     {
       "matches": ["*://*.music.youtube.com/*"],
-      "js": ["youtube.bundle.js"],
+      "js": ["sharink-youtube.bundle.js"],
       "run_at":"document_end"
     }
-  ]
+  ],
+  "web_accessible_resources": [{ "matches": ["*://*.music.yandex.ru/*", "*://*.music.yandex.by/*"], "resources": ["icons/share.png"] }]
 }
