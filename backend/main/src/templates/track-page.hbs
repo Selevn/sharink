@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src * https://encrypted-tbn0.gstatic.com/;
+   img-src * 'self' https://encrypted-tbn0.gstatic.com/ encrypted-tbn0.gstatic.com/* data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+   style-src  'self' 'unsafe-inline' *">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Sharink {{name}} - {{author}}</title>
+</head>
+<body>
+    <div class="background">
+        <img class="background-image" src="{{cover}}" />
+    </div>
+    <main class="track-layout">
+        <div class="track-cover">
+            <img class="track-cover__image" src="{{cover}}" />
+        </div>
+        <header class="track-info">
+            <span class="track-info__title">{{author}} - {{name}}</span>
+        </header>
+        <div class="track-links">
+            {{#each links}}
+                {{#if this}}
+                    <a class="track-link" href="{{this}}" target="_blank" rel="noopener noreferrer">
+                        <div class="track-link__content">
+                            <img class="track-link__service-image" src="{{musicServiceLogo @key}}" />
+                            <svg
+                                class="track-link__play-button" 
+                                fill="#000000" 
+                                height="20px" 
+                                width="20px" 
+                                version="1.1" 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                xmlns:xlink="http://www.w3.org/1999/xlink" 
+	                            viewBox="0 0 330 330" xml:space="preserve"
+                            >
+                                <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
+                                    c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                                    C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                                    C255,161.018,253.42,157.202,250.606,154.389z"\
+                                />
+                            </svg>
+                        </div>
+                    </a>
+                {{/if}}
+            {{/each}}
+        </div>
+    </main>
+</body>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    body {
+        margin-top: 150px;
+    }
+
+    .background {
+        overflow: hidden;
+        
+        z-index: -1;
+        
+        height: 200%;
+        width: 200%;
+        top: -50%;
+        left: -50%;
+
+        display: block;
+        
+        position: fixed;
+        
+        background-color: #fff;
+    }
+
+    .background-image {
+        position: absolute;
+        
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 50%;
+        
+        max-width: none;
+        min-width: 55%;
+        min-height: 55%;
+        margin: auto;
+
+        transform: translate(-50%, 0);
+        -webkit-transform: translate(-50%, 0);
+                
+        filter: blur(25px);
+        -webkit-filter: blur(25px);
+
+        opacity: 0.8;
+    }
+
+    .track-layout {
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .track-cover {
+        width: 240px;
+        height: 240px;
+        margin: 0 auto;
+    }
+
+    .track-cover__image {
+        width: 100%;
+    }
+
+    .track-info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        filter: none;
+
+        padding: 20px 0;
+    }
+
+    .track-info__title {        
+        text-align: center;
+
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .track-links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        color: black;
+
+        overflow: hidden;
+    }
+
+    .track-link {
+        max-height: 60px;
+
+        color: inherit;
+        text-decoration: none;
+
+        background-color: rgb(248, 245, 245);
+        border-radius: 12px;
+
+        padding: 12px 15px;
+    }
+
+    .track-link:hover .track-link__play-button {
+        transform: translate(5px);
+    }
+
+    .track-link__service-image {
+        max-width: 200px;
+        height: 40px;
+    }
+
+    .track-link__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .track-link__play-button {
+        transition: transform 0.5s ease;
+    }
+</style>
+</html>

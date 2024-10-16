@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "webpack serve",
-    "build": "webpack --config ./webpack.config.ts",
+    "build": "webpack --config ./webpack.config.ts --mode=production",
     "lint": "eslint --fix \"**/*.{ts,tsx}\""
   },
   "type": "module",

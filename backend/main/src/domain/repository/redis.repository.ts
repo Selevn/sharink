@@ -21,6 +21,7 @@ export class RedisRepository
   async healthCheck(): Promise<boolean> {
     try {
       return await Promise.race([
+        // eslint-disable-next-line no-async-promise-executor
         new Promise<boolean>(async (res) => {
           res((await this._redis.ping()) === "PONG");
         }),

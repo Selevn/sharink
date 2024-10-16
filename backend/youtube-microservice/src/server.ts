@@ -33,32 +33,38 @@ producer.on("error", (err) => {
 consumer.on("message", (message) => {
   console.log("Received message:", message);
   const kafkaRequest = JSON.parse(message.value.toString()) as KafkaRequest;
-  youtubeService.getTrack(kafkaRequest).then((trackLink) => {
-    console.log(`Received track:`, trackLink);
-    const response: KafkaResponse = {
-      id: kafkaRequest.id,
-      service: "youtube",
-      link: trackLink,
-      entity: kafkaRequest.entity,
-    };
-    console.log(`Response:`, response);
-    producer.send(
-      [
-        {
-          topic: KAFKA_TOPICS.MASTER,
-          partition: 0,
-          messages: [JSON.stringify(response)],
-        },
-      ],
-      (err, data) => {
-        if (err) {
-          console.error("Error sending back message:", err);
-        } else {
-          console.log("Message sent back:", data);
+
+  youtubeService
+    .getTrack(kafkaRequest)
+    .then((trackLink) => {
+      console.log(`Received track:`, trackLink);
+      const response: KafkaResponse = {
+        id: kafkaRequest.id,
+        service: "youtube",
+        link: trackLink,
+        entity: kafkaRequest.entity,
+      };
+      console.log(`Response:`, response);
+      producer.send(
+        [
+          {
+            topic: KAFKA_TOPICS.MASTER,
+            partition: 0,
+            messages: [JSON.stringify(response)],
+          },
+        ],
+        (err, data) => {
+          if (err) {
+            console.error("Error sending back message:", err);
+          } else {
+            console.log("Message sent back:", data);
+          }
         }
-      }
-    );
-  });
+      );
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 });
 
 consumer.on("error", (err) => {

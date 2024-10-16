@@ -1,20 +1,8 @@
-import {
-  Name,
-  Author,
-  Cover,
-  LinkServices,
-  Link,
-  EntityType,
-} from "sharink-lib";
+import { Link, LinkServices, Track } from "./index";
 
 export type CacheID = string;
 
-export type CacheEntity = {
-  name: Name;
-  author: Author;
-  cover: Cover;
-  type: EntityType;
-  origin: LinkServices;
+export type CacheEntity = Track & {
   links: Record<LinkServices, Link>;
 };
 
@@ -26,5 +14,3 @@ export type CacheEntityUpdate = {
 export type CacheEntityWithId = CacheEntity & {
   id: CacheID;
 };
-
-export type Track = CacheEntity;

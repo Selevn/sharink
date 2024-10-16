@@ -31,3 +31,13 @@ export type KafkaResponse = {
   link: Link;
   entity: EntityType;
 };
+
+export type Track = {
+  name: Name;
+  author: Author;
+  cover: Cover;
+  type: EntityType;
+  origin: LinkServices;
+};
+
+export type TrackPage = string;
